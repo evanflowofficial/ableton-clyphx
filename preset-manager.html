@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClyphX Pro Preset Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .controls {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        button.secondary {
+            background: #555;
+        }
+
+        button.secondary:hover {
+            background: #666;
+        }
+
+        button.danger {
+            background: #f44336;
+        }
+
+        button.danger:hover {
+            background: #da190b;
+        }
+
+        .status {
+            flex: 1;
+            text-align: right;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .status.success {
+            color: #4CAF50;
+        }
+
+        .banks-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bank {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .bank-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bank-info {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .page-section {
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .slot {
+            background: #1a1a1a;
+            border: 2px dashed #444;
+            border-radius: 5px;
+            padding: 10px;
+            min-height: 70px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .slot.filled {
+            border: 2px solid #4CAF50;
+            background: #2a3a2a;
+        }
+
+        .slot.drag-over {
+            border-color: #2196F3;
+            background: #2a2a3a;
+        }
+
+        .slot:hover {
+            background: #333;
+        }
+
+        .slot-number {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .slot-name {
+            font-size: 12px;
+            color: #e0e0e0;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+
+        .slot.empty .slot-name {
+            color: #666;
+            font-style: italic;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .slot.filled:hover .remove-btn {
+            display: block;
+        }
+
+        .slot.selected {
+            border-color: #2196F3 !important;
+            background: #2a2a3a !important;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+        }
+
+        .preserved-controls {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .preserved-controls h3 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .preserved-list {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .preserved-list div {
+            margin-bottom: 5px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            background: #555;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .file-label:hover {
+            background: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            height: 300px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 1200px) {
+            .banks-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎛️ ClyphX Pro Preset Manager</h1>
+            <div class="subtitle">Drag-and-drop interface for managing your 2-bank preset system</div>
+        </header>
+
+        <div class="controls">
+            <label class="file-label">
+                📁 Import X-Controls.txt
+                <input type="file" id="importFile" accept=".txt">
+            </label>
+            <button onclick="undo()" id="undoBtn" class="secondary" disabled>↶ Undo</button>
+            <button onclick="redo()" id="redoBtn" class="secondary" disabled>↷ Redo</button>
+            <button onclick="clearAll()" class="secondary">🗑️ Clear All</button>
+            <button onclick="showPreview()">👁️ Preview</button>
+            <button onclick="generateFile()">💾 Generate X-Controls.txt</button>
+            <div class="status" id="status"></div>
+        </div>
+
+        <div class="banks-container">
+            <div class="bank">
+                <div class="bank-header">
+                    Bank 1 - MIDI Channel 1
+                    <span class="bank-info" id="bank1-count">0/112 filled</span>
+                </div>
+                <div id="bank1"></div>
+            </div>
+
+            <div class="bank">
+                <div class="bank-header">
+                    Bank 2 - MIDI Channel 2
+                    <span class="bank-info" id="bank2-count">0/112 filled</span>
+                </div>
+                <div id="bank2"></div>
+            </div>
+        </div>
+
+        <div class="preserved-controls">
+            <h3>✅ Preserved Controls (will not be modified)</h3>
+            <div class="preserved-list" id="preservedList">
+                No X-Controls.txt imported yet. Import a file to see preserved controls.
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <h2>Preview X-Controls.txt</h2>
+            <textarea id="previewText" readonly></textarea>
+            <div class="modal-buttons">
+                <button onclick="closePreview()" class="secondary">Close</button>
+                <button onclick="generateFile()">💾 Download File</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const banks = {
+            1: Array(112).fill(null),
+            2: Array(112).fill(null)
+        };
+
+        let preservedHeader = '';
+        let preservedFooter = '';
+        let preservedControls = [];
+        
+        // Selection state
+        let selectedSlots = new Set(); // Stores "bank-index" strings like "1-5", "2-10"
+        let lastSelectedSlot = null; // For shift-click range selection
+        
+        // Undo/Redo history
+        let history = [];
+        let historyIndex = -1;
+        const MAX_HISTORY = 50; // Keep last 50 actions
+
+        const pages = [
+            { name: 'Acoustic Drums', start: 0, count: 16 },
+            { name: 'Electronic Drums', start: 16, count: 16 },
+            { name: 'Bass', start: 32, count: 16 },
+            { name: 'Keyboards', start: 48, count: 16 },
+            { name: 'Synths', start: 64, count: 16 },
+            { name: 'Strings', start: 80, count: 16 },
+            { name: 'Winds', start: 96, count: 16 }
+        ];
+
+        // Initialize banks
+        function initBanks() {
+            renderBank(1);
+            renderBank(2);
+        }
+
+        function renderBank(bankNum) {
+            const container = document.getElementById(`bank${bankNum}`);
+            container.innerHTML = '';
+
+            pages.forEach(page => {
+                const section = document.createElement('div');
+                section.className = 'page-section';
+                
+                const title = document.createElement('div');
+                title.className = 'page-title';
+                title.textContent = `${page.name} (${page.start}-${page.start + page.count - 1})`;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'slots-grid';
+
+                for (let i = 0; i < page.count; i++) {
+                    const slotIndex = page.start + i;
+                    const slot = createSlot(bankNum, slotIndex);
+                    grid.appendChild(slot);
+                }
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+
+            updateBankCount(bankNum);
+        }
+
+        function createSlot(bankNum, index) {
+            const slot = document.createElement('div');
+            const slotKey = `${bankNum}-${index}`;
+            
+            let className = banks[bankNum][index] ? 'slot filled' : 'slot empty';
+            if (selectedSlots.has(slotKey)) {
+                className += ' selected';
+            }
+            
+            slot.className = className;
+            slot.dataset.bank = bankNum;
+            slot.dataset.index = index;
+            slot.draggable = banks[bankNum][index] !== null || selectedSlots.size > 0;
+
+            slot.innerHTML = `
+                <div class="slot-number">Slot ${index + 1} (Note ${index})</div>
+                <div class="slot-name">${banks[bankNum][index] || 'Empty'}</div>
+                ${banks[bankNum][index] ? '<button class="remove-btn" onclick="removePreset(event, ' + bankNum + ', ' + index + ')">×</button>' : ''}
+            `;
+
+            // Drag events
+            slot.addEventListener('dragstart', handleDragStart);
+            slot.addEventListener('dragover', handleDragOver);
+            slot.addEventListener('drop', handleDrop);
+            slot.addEventListener('dragleave', handleDragLeave);
+            slot.addEventListener('click', handleSlotClick);
+            slot.addEventListener('dblclick', handleSlotDoubleClick);
+
+            return slot;
+        }
+
+        function handleSlotClick(e) {
+            if (e.target.classList.contains('remove-btn')) return;
+            
+            const slot = e.currentTarget;
+            const bank = slot.dataset.bank;
+            const index = parseInt(slot.dataset.index);
+            const slotKey = `${bank}-${index}`;
+            
+            // Check for modifier keys
+            const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+            const isShift = e.shiftKey;
+            
+            if (isShift && lastSelectedSlot) {
+                // Range selection
+                const [lastBank, lastIndex] = lastSelectedSlot.split('-').map(Number);
+                
+                // Only allow range selection within same bank
+                if (parseInt(bank) === lastBank) {
+                    const start = Math.min(lastIndex, index);
+                    const end = Math.max(lastIndex, index);
+                    
+                    for (let i = start; i <= end; i++) {
+                        const key = `${bank}-${i}`;
+                        if (banks[bank][i]) { // Only select filled slots
+                            selectedSlots.add(key);
+                        }
+                    }
+                    
+                    renderBank(parseInt(bank));
+                    setStatus(`Selected ${end - start + 1} slots`, 'success');
+                }
+            } else if (isCmdOrCtrl) {
+                // Multi-selection (toggle)
+                if (selectedSlots.has(slotKey)) {
+                    selectedSlots.delete(slotKey);
+                } else {
+                    if (banks[bank][index]) { // Only select filled slots
+                        selectedSlots.add(slotKey);
+                    }
+                }
+                lastSelectedSlot = slotKey;
+                renderBank(parseInt(bank));
+                setStatus(`${selectedSlots.size} slots selected`, 'success');
+            } else {
+                // Single selection (clear others)
+                selectedSlots.clear();
+                if (banks[bank][index]) { // Only select filled slots
+                    selectedSlots.add(slotKey);
+                    lastSelectedSlot = slotKey;
+                }
+                renderBank(parseInt(bank));
+                if (selectedSlots.size > 0) {
+                    setStatus('Slot selected (double-click to rename)', 'success');
+                }
+            }
+        }
+        
+        function handleSlotDoubleClick(e) {
+            if (e.target.classList.contains('remove-btn')) return;
+            
+            const slot = e.currentTarget;
+            const bank = slot.dataset.bank;
+            const index = slot.dataset.index;
+
+            const presetName = prompt('Enter preset filename (e.g., "LABS - Percussion.adg"):', banks[bank][index] || '');
+            if (presetName !== null && presetName.trim() !== '') {
+                banks[bank][index] = presetName.trim();
+                selectedSlots.clear();
+                renderBank(parseInt(bank));
+                saveState();
+                setStatus('Preset updated', 'success');
+            } else if (presetName === '') {
+                banks[bank][index] = null;
+                selectedSlots.clear();
+                renderBank(parseInt(bank));
+                saveState();
+                setStatus('Preset removed', 'success');
+            }
+        }
+
+        function removePreset(e, bank, index) {
+            e.stopPropagation();
+            banks[bank][index] = null;
+            renderBank(bank);
+            saveState();
+            setStatus('Preset removed', 'success');
+        }
+
+        let draggedSlot = null;
+        let draggedGroup = null;
+
+        function handleDragStart(e) {
+            draggedSlot = e.currentTarget;
+            const slotKey = `${e.currentTarget.dataset.bank}-${e.currentTarget.dataset.index}`;
+            
+            // Check if dragging a selected group
+            if (selectedSlots.size > 1 && selectedSlots.has(slotKey)) {
+                // Dragging a group
+                draggedGroup = Array.from(selectedSlots).map(key => {
+                    const [bank, index] = key.split('-').map(Number);
+                    return { bank, index, preset: banks[bank][index] };
+                });
+                e.currentTarget.style.opacity = '0.5';
+                // Also fade all selected slots
+                document.querySelectorAll('.slot.selected').forEach(slot => {
+                    slot.style.opacity = '0.5';
+                });
+            } else {
+                // Single slot drag
+                draggedGroup = null;
+                e.currentTarget.style.opacity = '0.5';
+            }
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+
+            const targetSlot = e.currentTarget;
+            
+            // Check if files were dropped (from file system)
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                const targetBank = parseInt(targetSlot.dataset.bank);
+                let targetIndex = parseInt(targetSlot.dataset.index);
+                
+                const files = Array.from(e.dataTransfer.files);
+                const adgFiles = files.filter(f => f.name.toLowerCase().endsWith('.adg'));
+                
+                if (adgFiles.length === 0) {
+                    setStatus('Only .adg files are supported', '');
+                    return;
+                }
+                
+                let addedCount = 0;
+                
+                // Add files sequentially starting from target slot
+                for (const file of adgFiles) {
+                    if (targetIndex >= 112) {
+                        // Reached end of bank
+                        setStatus(`Added ${addedCount} presets (reached end of bank)`, 'success');
+                        renderBank(targetBank);
+                        if (draggedSlot) {
+                            draggedSlot.style.opacity = '1';
+                            draggedSlot = null;
+                        }
+                        return;
+                    }
+                    
+                    banks[targetBank][targetIndex] = file.name;
+                    targetIndex++;
+                    addedCount++;
+                }
+                
+                renderBank(targetBank);
+                saveState();
+                
+                if (adgFiles.length === 1) {
+                    setStatus(`Added preset: ${adgFiles[0].name}`, 'success');
+                } else {
+                    setStatus(`Added ${addedCount} presets starting at slot ${parseInt(targetSlot.dataset.index) + 1}`, 'success');
+                }
+                
+                if (draggedSlot) {
+                    draggedSlot.style.opacity = '1';
+                    draggedSlot = null;
+                }
+                return;
+            }
+            
+            // Otherwise, handle slot-to-slot drag
+            if (draggedGroup && draggedGroup.length > 0) {
+                // Group drag - place presets sequentially
+                const targetBank = parseInt(targetSlot.dataset.bank);
+                let targetIndex = parseInt(targetSlot.dataset.index);
+                
+                // Clear original positions
+                draggedGroup.forEach(item => {
+                    banks[item.bank][item.index] = null;
+                });
+                
+                // Place presets sequentially at target
+                let placedCount = 0;
+                for (const item of draggedGroup) {
+                    if (targetIndex >= 112) {
+                        break; // Reached end of bank
+                    }
+                    banks[targetBank][targetIndex] = item.preset;
+                    targetIndex++;
+                    placedCount++;
+                }
+                
+                // Clear selection
+                selectedSlots.clear();
+                lastSelectedSlot = null;
+                
+                // Re-render all affected banks
+                const affectedBanks = new Set([targetBank, ...draggedGroup.map(item => item.bank)]);
+                affectedBanks.forEach(bankNum => renderBank(bankNum));
+                
+                setStatus(`Moved ${placedCount} presets`, 'success');
+                
+                // Reset opacity for all selected slots
+                document.querySelectorAll('.slot.selected').forEach(slot => {
+                    slot.style.opacity = '1';
+                });
+                
+                saveState();
+                draggedGroup = null;
+            } else if (draggedSlot && draggedSlot !== targetSlot) {
+                // Single slot drag - swap
+                const sourceBank = parseInt(draggedSlot.dataset.bank);
+                const sourceIndex = parseInt(draggedSlot.dataset.index);
+                const targetBank = parseInt(targetSlot.dataset.bank);
+                const targetIndex = parseInt(targetSlot.dataset.index);
+
+                // Swap presets
+                const temp = banks[targetBank][targetIndex];
+                banks[targetBank][targetIndex] = banks[sourceBank][sourceIndex];
+                banks[sourceBank][sourceIndex] = temp;
+
+                renderBank(sourceBank);
+                if (sourceBank !== targetBank) {
+                    renderBank(targetBank);
+                }
+
+                saveState();
+                setStatus('Presets swapped', 'success');
+            }
+
+            if (draggedSlot) {
+                draggedSlot.style.opacity = '1';
+                draggedSlot = null;
+            }
+        }
+
+        function updateBankCount(bankNum) {
+            const filled = banks[bankNum].filter(p => p !== null).length;
+            document.getElementById(`bank${bankNum}-count`).textContent = `${filled}/112 filled`;
+        }
+
+        // Import X-Controls.txt
+        document.getElementById('importFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                parseXControls(event.target.result);
+                setStatus('File imported successfully!', 'success');
+            };
+            reader.readAsText(file);
+        });
+
+        function parseXControls(content) {
+            const lines = content.split('\n');
+            let inBankSection = false;
+            let headerLines = [];
+            let footerLines = [];
+            preservedControls = [];
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+
+                // Detect bank sections
+                if (line.startsWith('PAD_') && (line.includes('_B1 =') || line.includes('_B2 ='))) {
+                    inBankSection = true;
+                    
+                    // Parse preset name
+                    const match = line.match(/SEL\/SWAP "([^"]+)"/);
+                    if (match) {
+                        const presetName = match[1];
+                        const bankMatch = line.match(/PAD_(\d+)_B(\d)/);
+                        if (bankMatch) {
+                            const padNum = parseInt(bankMatch[1]) - 1; // Convert to 0-indexed
+                            const bankNum = parseInt(bankMatch[2]);
+                            if (padNum >= 0 && padNum < 112 && (bankNum === 1 || bankNum === 2)) {
+                                banks[bankNum][padNum] = presetName;
+                            }
+                        }
+                    }
+                } else if (line.startsWith('SHOW_PLUGIN') || line.startsWith('HIDE_PLUGIN') || 
+                          (line.includes('=') && !line.startsWith('#') && !line.startsWith('[') && line.length > 0)) {
+                    // This is a preserved control
+                    if (!line.startsWith('PAD_')) {
+                        preservedControls.push(lines[i]); // Keep original formatting
+                    }
+                } else if (!inBankSection && line.length > 0) {
+                    headerLines.push(lines[i]);
+                }
+            }
+
+            preservedHeader = headerLines.join('\n');
+            preservedFooter = preservedControls.join('\n');
+
+            // Update UI
+            renderBank(1);
+            renderBank(2);
+            displayPreservedControls();
+        }
+
+        function displayPreservedControls() {
+            const container = document.getElementById('preservedList');
+            if (preservedControls.length === 0) {
+                container.innerHTML = '<div style="color: #666;">No custom controls found</div>';
+            } else {
+                container.innerHTML = preservedControls
+                    .map(line => `<div>✅ ${line.trim()}</div>`)
+                    .join('');
+            }
+        }
+
+        function clearAll() {
+            if (!confirm('Are you sure you want to clear all presets? This cannot be undone.')) return;
+            
+            banks[1] = Array(112).fill(null);
+            banks[2] = Array(112).fill(null);
+            renderBank(1);
+            renderBank(2);
+            setStatus('All presets cleared', 'success');
+        }
+
+        function generateXControlsText() {
+            let output = preservedHeader || getDefaultHeader();
+            output += '\n\n';
+
+            // Bank 1
+            output += '# ----------------------------------------------------------------------------------------\n';
+            output += '# BANK 1 - MIDI CHANNEL 1 (Notes 0-111)\n';
+            output += '# ----------------------------------------------------------------------------------------\n\n';
+
+            pages.forEach(page => {
+                output += `# ${page.name.toUpperCase()} (Notes ${page.start}-${page.start + page.count - 1})\n`;
+                for (let i = 0; i < page.count; i++) {
+                    const index = page.start + i;
+                    const preset = banks[1][index] || 'PLACEHOLDER';
+                    output += `PAD_${index + 1}_B1 = NOTE, 1, ${index}, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "${preset}"\n`;
+                }
+                output += '\n';
+            });
+
+            // Bank 2
+            output += '# ----------------------------------------------------------------------------------------\n';
+            output += '# BANK 2 - MIDI CHANNEL 2 (Notes 0-111)\n';
+            output += '# ----------------------------------------------------------------------------------------\n\n';
+
+            pages.forEach(page => {
+                output += `# ${page.name.toUpperCase()} (Notes ${page.start}-${page.start + page.count - 1})\n`;
+                for (let i = 0; i < page.count; i++) {
+                    const index = page.start + i;
+                    const preset = banks[2][index] || 'PLACEHOLDER';
+                    output += `PAD_${index + 1}_B2 = NOTE, 2, ${index}, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "${preset}"\n`;
+                }
+                output += '\n';
+            });
+
+            // Add preserved controls
+            if (preservedFooter) {
+                output += '# ----------------------------------------------------------------------------------------\n';
+                output += '# CUSTOM CONTROLS (PRESERVED)\n';
+                output += '# ----------------------------------------------------------------------------------------\n\n';
+                output += preservedFooter + '\n';
+            }
+
+            return output;
+        }
+
+        function getDefaultHeader() {
+            return `#********************************** [SETTINGS NOTES] **********************************
+
+# Please DO NOT change any of the spacing in this file.
+
+# After saving this file, you will need to load a new Live Set/reload the
+# current Live Set for your changes to take effect.
+
+# --------------------------------------------------------------------------------------
+
+[X-CONTROLS]
+
+# 2-BANK CHANNEL-BASED PRESET SYSTEM
+# Generated by ClyphX Pro Preset Manager
+
+# --------------------------------------------------------------------------------------`;
+        }
+
+        function showPreview() {
+            const text = generateXControlsText();
+            document.getElementById('previewText').value = text;
+            document.getElementById('previewModal').classList.add('active');
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.remove('active');
+        }
+
+        function generateFile() {
+            const text = generateXControlsText();
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'X-Controls.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            closePreview();
+            setStatus('File downloaded! Replace your existing X-Controls.txt', 'success');
+        }
+
+        function setStatus(message, type = '') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = type ? `status ${type}` : 'status';
+            
+            if (message) {
+                setTimeout(() => {
+                    status.textContent = '';
+                    status.className = 'status';
+                }, 5000);
+            }
+        }
+
+        // Undo/Redo system
+        function saveState() {
+            // Create deep copy of current state
+            const state = {
+                banks: {
+                    1: [...banks[1]],
+                    2: [...banks[2]]
+                }
+            };
+            
+            // Remove any future history if we're not at the end
+            if (historyIndex < history.length - 1) {
+                history = history.slice(0, historyIndex + 1);
+            }
+            
+            // Add new state
+            history.push(state);
+            
+            // Keep history within limit
+            if (history.length > MAX_HISTORY) {
+                history.shift();
+            } else {
+                historyIndex++;
+            }
+            
+            updateUndoRedoButtons();
+        }
+        
+        function undo() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                restoreState(history[historyIndex]);
+                setStatus('Undone', 'success');
+            }
+        }
+        
+        function redo() {
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+                restoreState(history[historyIndex]);
+                setStatus('Redone', 'success');
+            }
+        }
+        
+        function restoreState(state) {
+            banks[1] = [...state.banks[1]];
+            banks[2] = [...state.banks[2]];
+            renderBank(1);
+            renderBank(2);
+            updateUndoRedoButtons();
+        }
+        
+        function updateUndoRedoButtons() {
+            document.getElementById('undoBtn').disabled = historyIndex <= 0;
+            document.getElementById('redoBtn').disabled = historyIndex >= history.length - 1;
+        }
+
+        // Initialize with initial state
+        saveState();
+        initBanks();
+        setStatus('Ready! Import your X-Controls.txt or start adding presets.', 'success');
+    </script>
+</body>
+</html>

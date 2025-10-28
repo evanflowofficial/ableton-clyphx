@@ -31,23 +31,21 @@
 
 # --------------------------------------------------------------------------------------
 
-# Below is an example list that has been commented out (the # at the beginning of
-# a line makes the line a comment). Your list should be formatted in the same way
-# except without the # at the beginning of each line.
+# ========================================================================================
+# 2-BANK CHANNEL-BASED PRESET SYSTEM
+# ========================================================================================
+# This file no longer needs bank loaders or default pad macros!
+# All preset mappings are now defined directly in X-Controls.txt using MIDI channels.
+#
+# Bank 1 = MIDI Channel 1 (112 presets) - Defined in X-Controls.txt
+# Bank 2 = MIDI Channel 2 (112 presets) - Defined in X-Controls.txt
+#
+# To switch banks: Change your Maschine MK3 template to send a different MIDI channel
+# Total: 224 presets across 2 banks
+# ========================================================================================
 
-# Single line Macro:
-# $EX_MACRO_1$ = METRO
+# This file is now clean and ready for any custom macros you want to add!
+# Add your custom macros below using the format: $MACRO_NAME$ = ACTION(s)
 
-# Multi line Macro type 1 (note that each additional line needs to be indented by 1 space):
-# $EX_MACRO_2$ = ARM;
-#  SOLO;
-
-# Multi line Macro type 2 (note that each additional line needs to be indented by 1 space):
-# $EX_MACRO_3$ =
-#  ARM;
-#  SOLO;
-
-# --------------------------------------------------------------------------------------
-
-# >>>>>>>> DELETE THIS ENTIRE LINE AND START YOUR LIST HERE <<<<<<<<
-
+# Example:
+# $MY_CUSTOM_MACRO$ = SEL/ARM ; SEL/PLAY
