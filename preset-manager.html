@@ -94,8 +94,8 @@
         }
 
         .banks-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             margin-bottom: 20px;
         }
@@ -103,34 +103,174 @@
         .bank {
             background: #2a2a2a;
             border-radius: 8px;
-            padding: 20px;
+            border: 2px solid #444;
+            overflow: hidden;
         }
 
         .bank-header {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 15px;
+            padding: 15px 20px;
             color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #333;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        
+        .bank-header:hover {
+            background: #3a3a3a;
+        }
+        
+        .bank-header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bank-header-arrow {
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        
+        .bank.collapsed .bank-header-arrow {
+            transform: rotate(-90deg);
         }
 
         .bank-info {
             font-size: 12px;
             color: #888;
         }
+        
+        .bank-content {
+            padding: 20px;
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        
+        .bank.collapsed .bank-content {
+            max-height: 0;
+            padding: 0 20px;
+        }
 
         .page-section {
             margin-bottom: 25px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
         }
 
         .page-title {
             font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
+            color: #e0e0e0;
+            padding: 12px 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            background: #333;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .page-title:hover {
+            background: #3a3a3a;
+        }
+        
+        /* Category-specific colors */
+        .page-section.category-0 .page-title {
+            background: #2d5016;
+            border-left: 4px solid #4a7c2c;
+        }
+        
+        .page-section.category-0 .page-title:hover {
+            background: #3d6026;
+        }
+        
+        .page-section.category-1 .page-title {
+            background: #3d6026;
+            border-left: 4px solid #5a9c3c;
+        }
+        
+        .page-section.category-1 .page-title:hover {
+            background: #4d7036;
+        }
+        
+        .page-section.category-2 .page-title {
+            background: #7a6020;
+            border-left: 4px solid #d4a520;
+        }
+        
+        .page-section.category-2 .page-title:hover {
+            background: #8a7030;
+        }
+        
+        .page-section.category-3 .page-title {
+            background: #1a4d7a;
+            border-left: 4px solid #2a6daa;
+        }
+        
+        .page-section.category-3 .page-title:hover {
+            background: #2a5d8a;
+        }
+        
+        .page-section.category-4 .page-title {
+            background: #4a2a5a;
+            border-left: 4px solid #663399;
+        }
+        
+        .page-section.category-4 .page-title:hover {
+            background: #5a3a6a;
+        }
+        
+        .page-section.category-5 .page-title {
+            background: #6a2a2a;
+            border-left: 4px solid #8b3a3a;
+        }
+        
+        .page-section.category-5 .page-title:hover {
+            background: #7a3a3a;
+        }
+        
+        .page-section.category-6 .page-title {
+            background: #4a4a4a;
+            border-left: 4px solid #8a8a8a;
+        }
+        
+        .page-section.category-6 .page-title:hover {
+            background: #5a5a5a;
+        }
+        
+        .page-title-text {
+            flex: 1;
+        }
+        
+        .page-title-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .page-section.collapsed .page-title-arrow {
+            transform: rotate(-90deg);
+        }
+        
+        .page-content {
+            padding: 10px;
+            background: #2a2a2a;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        
+        .page-section.collapsed .page-content {
+            max-height: 0;
+            padding: 0 10px;
         }
 
         .slots-grid {
@@ -315,7 +455,7 @@
     <div class="container">
         <header>
             <h1>🎛️ ClyphX Pro Preset Manager</h1>
-            <div class="subtitle">Drag-and-drop interface for managing your 2-bank preset system</div>
+            <div class="subtitle">Drag-and-drop interface for managing your 5-bank preset system (560 total presets)</div>
         </header>
 
         <div class="controls">
@@ -331,23 +471,7 @@
             <div class="status" id="status"></div>
         </div>
 
-        <div class="banks-container">
-            <div class="bank">
-                <div class="bank-header">
-                    Bank 1 - MIDI Channel 1
-                    <span class="bank-info" id="bank1-count">0/112 filled</span>
-                </div>
-                <div id="bank1"></div>
-            </div>
-
-            <div class="bank">
-                <div class="bank-header">
-                    Bank 2 - MIDI Channel 2
-                    <span class="bank-info" id="bank2-count">0/112 filled</span>
-                </div>
-                <div id="bank2"></div>
-            </div>
-        </div>
+        <div class="banks-container" id="banksContainer"></div>
 
         <div class="preserved-controls">
             <h3>✅ Preserved Controls (will not be modified)</h3>
@@ -369,10 +493,13 @@
     </div>
 
     <script>
-        // Data structure
+        // Data structure - 5 banks total (560 presets!)
         const banks = {
             1: Array(112).fill(null),
-            2: Array(112).fill(null)
+            2: Array(112).fill(null),
+            3: Array(112).fill(null),
+            4: Array(112).fill(null),
+            5: Array(112).fill(null)
         };
 
         let preservedHeader = '';
@@ -388,34 +515,98 @@
         let historyIndex = -1;
         const MAX_HISTORY = 50; // Keep last 50 actions
 
+        // ============================================================================
+        // EDIT SECTION NAMES HERE - Change the 'name' property to customize labels
+        // ============================================================================
         const pages = [
-            { name: 'Acoustic Drums', start: 0, count: 16 },
-            { name: 'Electronic Drums', start: 16, count: 16 },
-            { name: 'Bass', start: 32, count: 16 },
-            { name: 'Keyboards', start: 48, count: 16 },
-            { name: 'Synths', start: 64, count: 16 },
-            { name: 'Strings', start: 80, count: 16 },
-            { name: 'Winds', start: 96, count: 16 }
+            { name: 'Acoustic Drums', start: 0, count: 16, colorIndex: 26 },   // Category 0 - Dark Green
+            { name: 'Electronic Drums', start: 16, count: 16, colorIndex: 21 }, // Category 1 - Light Green
+            { name: 'Bass', start: 32, count: 16, colorIndex: 14 },             // Category 2 - Yellow/Gold
+            { name: 'Keyboards', start: 48, count: 16, colorIndex: 37 },        // Category 3 - Deep Blue
+            { name: 'Synths', start: 64, count: 16, colorIndex: 49 },           // Category 4 - Purple
+            { name: 'Strings', start: 80, count: 16, colorIndex: 4 },           // Category 5 - Red
+            { name: 'Winds', start: 96, count: 16, colorIndex: 69 }             // Category 6 - White
         ];
+        // ============================================================================
 
         // Initialize banks
         function initBanks() {
-            renderBank(1);
-            renderBank(2);
+            const container = document.getElementById('banksContainer');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const bank = document.createElement('div');
+                bank.className = 'bank';
+                bank.dataset.bankNum = i;
+                
+                // Check if bank was previously collapsed
+                const collapseKey = `bank-collapse-${i}`;
+                const isCollapsed = localStorage.getItem(collapseKey) === 'true';
+                if (isCollapsed) {
+                    bank.classList.add('collapsed');
+                }
+                
+                const header = document.createElement('div');
+                header.className = 'bank-header';
+                header.innerHTML = `
+                    <div class="bank-header-title">
+                        <span>Bank ${i} - MIDI Channel ${i}</span>
+                        <span class="bank-info" id="bank${i}-count">0/112 filled</span>
+                    </div>
+                    <span class="bank-header-arrow">▼</span>
+                `;
+                header.addEventListener('click', () => toggleBank(bank));
+                
+                const content = document.createElement('div');
+                content.className = 'bank-content';
+                content.id = `bank${i}`;
+                
+                bank.appendChild(header);
+                bank.appendChild(content);
+                container.appendChild(bank);
+                
+                renderBank(i);
+            }
+        }
+        
+        function toggleBank(bank) {
+            bank.classList.toggle('collapsed');
+            
+            // Save collapse state to localStorage
+            const bankNum = bank.dataset.bankNum;
+            const collapseKey = `bank-collapse-${bankNum}`;
+            const isCollapsed = bank.classList.contains('collapsed');
+            localStorage.setItem(collapseKey, isCollapsed);
         }
 
         function renderBank(bankNum) {
             const container = document.getElementById(`bank${bankNum}`);
             container.innerHTML = '';
 
-            pages.forEach(page => {
+            pages.forEach((page, pageIndex) => {
                 const section = document.createElement('div');
-                section.className = 'page-section';
+                section.className = `page-section category-${pageIndex}`;
+                section.dataset.bank = bankNum;
+                section.dataset.page = pageIndex;
+                
+                // Check if this section was previously collapsed
+                const collapseKey = `collapse-${bankNum}-${pageIndex}`;
+                const isCollapsed = localStorage.getItem(collapseKey) === 'true';
+                if (isCollapsed) {
+                    section.classList.add('collapsed');
+                }
                 
                 const title = document.createElement('div');
                 title.className = 'page-title';
-                title.textContent = `${page.name} (${page.start}-${page.start + page.count - 1})`;
+                title.innerHTML = `
+                    <span class="page-title-text">${page.name} (Slots ${page.start + 1}-${page.start + page.count})</span>
+                    <span class="page-title-arrow">▼</span>
+                `;
+                title.addEventListener('click', () => toggleSection(section));
                 section.appendChild(title);
+
+                const content = document.createElement('div');
+                content.className = 'page-content';
 
                 const grid = document.createElement('div');
                 grid.className = 'slots-grid';
@@ -426,11 +617,23 @@
                     grid.appendChild(slot);
                 }
 
-                section.appendChild(grid);
+                content.appendChild(grid);
+                section.appendChild(content);
                 container.appendChild(section);
             });
 
             updateBankCount(bankNum);
+        }
+        
+        function toggleSection(section) {
+            section.classList.toggle('collapsed');
+            
+            // Save collapse state to localStorage
+            const bank = section.dataset.bank;
+            const page = section.dataset.page;
+            const collapseKey = `collapse-${bank}-${page}`;
+            const isCollapsed = section.classList.contains('collapsed');
+            localStorage.setItem(collapseKey, isCollapsed);
         }
 
         function createSlot(bankNum, index) {
@@ -721,9 +924,13 @@
             const reader = new FileReader();
             reader.onload = function(event) {
                 parseXControls(event.target.result);
+                saveState(); // Save state after import
                 setStatus('File imported successfully!', 'success');
             };
             reader.readAsText(file);
+            
+            // Reset input so same file can be imported again
+            e.target.value = '';
         });
 
         function parseXControls(content) {
@@ -736,8 +943,8 @@
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim();
 
-                // Detect bank sections
-                if (line.startsWith('PAD_') && (line.includes('_B1 =') || line.includes('_B2 ='))) {
+                // Detect bank sections (support B1-B5)
+                if (line.startsWith('PAD_') && /_B\d =/.test(line)) {
                     inBankSection = true;
                     
                     // Parse preset name
@@ -748,7 +955,7 @@
                         if (bankMatch) {
                             const padNum = parseInt(bankMatch[1]) - 1; // Convert to 0-indexed
                             const bankNum = parseInt(bankMatch[2]);
-                            if (padNum >= 0 && padNum < 112 && (bankNum === 1 || bankNum === 2)) {
+                            if (padNum >= 0 && padNum < 112 && bankNum >= 1 && bankNum <= 5) {
                                 banks[bankNum][padNum] = presetName;
                             }
                         }
@@ -767,9 +974,10 @@
             preservedHeader = headerLines.join('\n');
             preservedFooter = preservedControls.join('\n');
 
-            // Update UI
-            renderBank(1);
-            renderBank(2);
+            // Update UI - render all 5 banks
+            for (let i = 1; i <= 5; i++) {
+                renderBank(i);
+            }
             displayPreservedControls();
         }
 
@@ -787,46 +995,63 @@
         function clearAll() {
             if (!confirm('Are you sure you want to clear all presets? This cannot be undone.')) return;
             
-            banks[1] = Array(112).fill(null);
-            banks[2] = Array(112).fill(null);
-            renderBank(1);
-            renderBank(2);
+            for (let i = 1; i <= 5; i++) {
+                banks[i] = Array(112).fill(null);
+                renderBank(i);
+            }
             setStatus('All presets cleared', 'success');
+        }
+
+        // Derive a clean track name from a preset filename
+        // e.g. "1 - A Drums (Masch).adg" → "A Drums (Masch)"
+        //      "Omnisphere 5.adg" → "Omnisphere 5"
+        //      "808 Pure.adg" → "808 Pure"
+        function deriveTrackName(presetFilename) {
+            if (!presetFilename || presetFilename === 'PLACEHOLDER') return null;
+            // Strip .adg extension
+            let name = presetFilename.replace(/\.adg$/i, '');
+            // Strip leading number + separator (e.g. "1 - ", "12 - ")
+            name = name.replace(/^\d+\s*-\s*/, '');
+            return name.trim();
+        }
+
+        // Get the Ableton color index for a slot based on which section it belongs to
+        function getColorIndexForSlot(slotIndex) {
+            for (const page of pages) {
+                if (slotIndex >= page.start && slotIndex < page.start + page.count) {
+                    return page.colorIndex;
+                }
+            }
+            return 69; // Default white
         }
 
         function generateXControlsText() {
             let output = preservedHeader || getDefaultHeader();
             output += '\n\n';
 
-            // Bank 1
-            output += '# ----------------------------------------------------------------------------------------\n';
-            output += '# BANK 1 - MIDI CHANNEL 1 (Notes 0-111)\n';
-            output += '# ----------------------------------------------------------------------------------------\n\n';
+            // Generate for all 5 banks
+            for (let bankNum = 1; bankNum <= 5; bankNum++) {
+                output += '# ----------------------------------------------------------------------------------------\n';
+                output += `# BANK ${bankNum} - MIDI CHANNEL ${bankNum} (Notes 0-111)\n`;
+                output += '# ----------------------------------------------------------------------------------------\n\n';
 
-            pages.forEach(page => {
-                output += `# ${page.name.toUpperCase()} (Notes ${page.start}-${page.start + page.count - 1})\n`;
-                for (let i = 0; i < page.count; i++) {
-                    const index = page.start + i;
-                    const preset = banks[1][index] || 'PLACEHOLDER';
-                    output += `PAD_${index + 1}_B1 = NOTE, 1, ${index}, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "${preset}"\n`;
-                }
-                output += '\n';
-            });
-
-            // Bank 2
-            output += '# ----------------------------------------------------------------------------------------\n';
-            output += '# BANK 2 - MIDI CHANNEL 2 (Notes 0-111)\n';
-            output += '# ----------------------------------------------------------------------------------------\n\n';
-
-            pages.forEach(page => {
-                output += `# ${page.name.toUpperCase()} (Notes ${page.start}-${page.start + page.count - 1})\n`;
-                for (let i = 0; i < page.count; i++) {
-                    const index = page.start + i;
-                    const preset = banks[2][index] || 'PLACEHOLDER';
-                    output += `PAD_${index + 1}_B2 = NOTE, 2, ${index}, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "${preset}"\n`;
-                }
-                output += '\n';
-            });
+                pages.forEach(page => {
+                    output += `# ${page.name.toUpperCase()} (Notes ${page.start}-${page.start + page.count - 1})\n`;
+                    for (let i = 0; i < page.count; i++) {
+                        const index = page.start + i;
+                        const preset = banks[bankNum][index] || 'PLACEHOLDER';
+                        const trackName = deriveTrackName(preset);
+                        const colorIdx = page.colorIndex;
+                        let line = `PAD_${index + 1}_B${bankNum} = NOTE, ${bankNum}, ${index}, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "${preset}"`;
+                        // Add NAME and COLOR actions for real presets (not placeholders)
+                        if (trackName) {
+                            line += ` ; SEL/NAME "${trackName}" ; SEL/COLOR ${colorIdx}`;
+                        }
+                        output += line + '\n';
+                    }
+                    output += '\n';
+                });
+            }
 
             // Add preserved controls
             if (preservedFooter) {
@@ -851,7 +1076,7 @@
 
 [X-CONTROLS]
 
-# 2-BANK CHANNEL-BASED PRESET SYSTEM
+# 5-BANK CHANNEL-BASED PRESET SYSTEM (560 total presets)
 # Generated by ClyphX Pro Preset Manager
 
 # --------------------------------------------------------------------------------------`;
@@ -900,7 +1125,10 @@
             const state = {
                 banks: {
                     1: [...banks[1]],
-                    2: [...banks[2]]
+                    2: [...banks[2]],
+                    3: [...banks[3]],
+                    4: [...banks[4]],
+                    5: [...banks[5]]
                 }
             };
             
@@ -939,16 +1167,66 @@
         }
         
         function restoreState(state) {
-            banks[1] = [...state.banks[1]];
-            banks[2] = [...state.banks[2]];
-            renderBank(1);
-            renderBank(2);
+            for (let i = 1; i <= 5; i++) {
+                banks[i] = [...state.banks[i]];
+                renderBank(i);
+            }
             updateUndoRedoButtons();
         }
         
         function updateUndoRedoButtons() {
             document.getElementById('undoBtn').disabled = historyIndex <= 0;
             document.getElementById('redoBtn').disabled = historyIndex >= history.length - 1;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Cmd/Ctrl + Z = Undo
+            if ((e.metaKey || e.ctrlKey) && e.key === 'z' && !e.shiftKey) {
+                e.preventDefault();
+                undo();
+            }
+            // Cmd/Ctrl + Shift + Z = Redo
+            else if ((e.metaKey || e.ctrlKey) && e.key === 'z' && e.shiftKey) {
+                e.preventDefault();
+                redo();
+            }
+            // Cmd/Ctrl + Y = Redo (alternative)
+            else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
+                e.preventDefault();
+                redo();
+            }
+            // Delete/Backspace = Remove selected presets
+            else if ((e.key === 'Delete' || e.key === 'Backspace') && selectedSlots.size > 0) {
+                e.preventDefault();
+                deleteSelectedPresets();
+            }
+        });
+        
+        function deleteSelectedPresets() {
+            if (selectedSlots.size === 0) return;
+            
+            const affectedBanks = new Set();
+            const count = selectedSlots.size;
+            
+            // Delete all selected presets
+            selectedSlots.forEach(slotKey => {
+                const [bank, index] = slotKey.split('-').map(Number);
+                banks[bank][index] = null;
+                affectedBanks.add(bank);
+            });
+            
+            // Clear selection
+            selectedSlots.clear();
+            lastSelectedSlot = null;
+            
+            // Re-render affected banks
+            affectedBanks.forEach(bankNum => renderBank(bankNum));
+            
+            // Save state for undo
+            saveState();
+            
+            setStatus(`Deleted ${count} preset${count > 1 ? 's' : ''}`, 'success');
         }
 
         // Initialize with initial state
