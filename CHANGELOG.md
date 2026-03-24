@@ -1,5 +1,46 @@
 # ClyphX Pro Preset Manager - Changelog
 
+## v1.2 - Insert Drag & Drop + Corrected Colors (2026-03-22)
+
+### Behavior Changes
+
+**Drag & Drop: Insert Instead of Swap**
+- **Before:** Dragging preset #13 to slot #5 would swap the two presets
+- **After:** Dragging preset #13 to slot #5 inserts it there; slots 5-12 shift down one position. Slot #13 is freed up.
+- Cross-bank drags still swap (insert doesn't apply across separate banks)
+
+**Animated Slot Shifting**
+- Shifted slots animate with a smooth slide (up or down depending on direction) with a subtle bounce
+- The inserted slot gets a pop/glow highlight effect
+- Animations are ~350-400ms
+
+### Color Index Corrections
+
+Updated Ableton color indices based on verified 14×5 palette grid:
+
+| Category | Color | Old Index | New Index | Hex |
+|----------|-------|-----------|-----------|-----|
+| Acoustic Drums | Dark Green | 26 | 62 | #559E38 |
+| Electronic Drums | Lime Green | 21 | 19 | #8BFD70 |
+| Bass | Yellow | 14 | 18 | #FEEE4A |
+| Keyboards | Deep Blue | 37 | 65 | #1B3393 |
+| Synths | Purple | 49 | 67 | #624EAB |
+| Strings | Red | 4 | 15 | #FC393D |
+| Winds | White | 69 | 14 | #FFFFFF |
+
+### Track Name Derivation Update
+
+- Leading numbers now reinsert before parenthetical qualifiers:
+  - `"1 - A Drums (Masch).adg"` → `"A Drums 1 (Masch)"` (not just `"A Drums (Masch)"`)
+  - `"3 - A Bass.adg"` → `"A Bass 3"`
+  - `"Omnisphere 5.adg"` → `"Omnisphere 5"` (no prefix = unchanged)
+
+### Timing Fix
+
+- Added `WAIT 2` between `SEL/SWAP` and `SEL/NAME`/`SEL/COLOR` to give Ableton breathing room after loading heavy presets
+
+---
+
 ## v1.1 - Track Name & Color Support (2026-03-21)
 
 ### New Features

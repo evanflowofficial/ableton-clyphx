@@ -86,9 +86,11 @@ const pages = [
 ### Drag & Drop Features
 - **File drag from Finder** - Drag `.adg` files directly into slots
 - **Multi-file drag** - Select multiple files, drag once, fills sequentially
-- **Slot-to-slot drag** - Drag preset to another slot to swap
+- **Slot-to-slot insert (same bank)** - Drag preset to another slot; it inserts there and all slots between shift down/up to fill the gap. No presets are lost or overwritten.
+- **Slot-to-slot swap (cross-bank)** - Dragging between different banks still swaps
 - **Group drag** - Select multiple presets, drag all at once
 - **Visual feedback** - Drag-over highlighting, opacity changes
+- **Shift animations** - Shifted slots animate with a smooth slide + bounce; inserted slot gets a pop/glow effect
 
 ### Selection System
 - **Single-click** - Select one preset (clears others)
@@ -128,19 +130,31 @@ const pages = [
 
 [X-CONTROLS]
 
-# Bank 1
-PAD_1_B1 = NOTE, 1, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PresetName.adg"
-PAD_2_B1 = NOTE, 1, 1, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PresetName.adg"
+# Bank 1 — Real presets get NAME + COLOR actions
+PAD_1_B1 = NOTE, 1, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - A Drums (Masch).adg" ; WAIT 2 ; SEL/NAME "A Drums 1 (Masch)" ; SEL/COLOR 62
+PAD_2_B1 = NOTE, 1, 1, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - A Drums (Masch).adg" ; WAIT 2 ; SEL/NAME "A Drums 2 (Masch)" ; SEL/COLOR 62
 ...
 
+# PLACEHOLDER slots omit NAME/COLOR
+PAD_109_B1 = NOTE, 1, 108, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
 # Bank 2
-PAD_1_B2 = NOTE, 2, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PresetName.adg"
+PAD_1_B2 = NOTE, 2, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "LABS - Percussion.adg" ; WAIT 2 ; SEL/NAME "LABS - Percussion" ; SEL/COLOR 62
 ...
 
 [Preserved Controls]
 SHOW_PLUGIN = CC, 1, 38, 0, 127, SEL/DEV FOLD OFF
 HIDE_PLUGIN = CC, 1, 39, 0, 127, SEL/DEV FOLD ON
 ```
+
+### Action List Breakdown
+For a real preset, the action chain is:
+1. `SEL/DEV(1) SEL` — Select device 1 on the selected track
+2. `WAIT 1` — Wait 1 beat
+3. `SEL/SWAP "preset.adg"` — Swap the device to the named preset
+4. `WAIT 2` — Wait 2 beats (gives Ableton time to load the preset)
+5. `SEL/NAME "Clean Name"` — Rename the track
+6. `SEL/COLOR X` — Set the track color by category
 
 ### Key Parsing Logic
 - **Preset detection:** Regex `/PAD_(\d+)_B(\d)/` matches bank entries
@@ -403,6 +417,9 @@ Modify the `count` property in the pages array:
 - [ ] Cmd+click multi-selection
 - [ ] Shift+click range selection
 - [ ] Drag group of presets
+- [ ] Single drag inserts (not swaps) within same bank
+- [ ] Shift animation plays on affected slots
+- [ ] Cross-bank drag still swaps
 - [ ] Delete with backspace
 - [ ] Undo/Redo operations
 - [ ] Double-click rename
@@ -415,16 +432,34 @@ Modify the `count` property in the pages array:
 
 ## Future Enhancement Ideas
 
-- **Search/Filter:** Search for presets by name
-- **Favorites:** Mark frequently used presets
-- **Import/Export Banks:** Save individual banks as templates
-- **Batch Rename:** Rename multiple presets at once
-- **Duplicate Detection:** Highlight duplicate preset names
-- **Preset Preview:** Display preset metadata or waveform
-- **Auto-backup:** Automatic backup before generating new file
-- **Categories:** Custom categories beyond the 7 defaults
+### High Priority (Most Useful)
+- **Search/Filter:** Search for presets by name across all banks; filter by category
+- **Auto-save to localStorage:** Persist the full preset state (not just UI collapse state) so you don't lose work if you close the tab
+- **Auto-backup:** Automatically save a timestamped backup of X-Controls.txt before generating a new one
+- **Duplicate Detection:** Highlight duplicate preset names across banks with a warning indicator
+- **Batch Rename:** Select multiple presets and apply a rename pattern (e.g., add prefix, renumber)
+- **Preset Validation:** Check that referenced .adg files actually exist on disk before exporting
+
+### Medium Priority (Nice to Have)
+- **Import/Export Banks:** Save/load individual banks as JSON templates for reuse across projects
+- **Custom Section Names per Bank:** Allow different section names for different banks (e.g., Bank 2 could have different categories than Bank 1)
+- **Configurable Section Slot Counts:** UI to change how many slots per section (currently fixed at 16 each)
+- **Drag Handle Visual:** Show a grip icon on filled slots to make drag affordance clearer
+- **Right-click Context Menu:** Copy, paste, move-to-bank, duplicate preset operations
+- **Bulk Fill from Folder:** Point to a folder on disk and auto-populate an entire section/bank
+- **Track Color Preview:** Show the actual Ableton color swatch next to the category name in the UI
+- **Custom Color per Preset:** Override the category color for individual presets
+- **WAIT Time Configuration:** UI control to set the WAIT beat count for different categories (heavier plugins like EZdrummer need longer waits)
+
+### Lower Priority (Future Polish)
+- **Favorites/Stars:** Mark frequently used presets for quick access
+- **Preset Notes:** Add a text note/description to each slot
 - **Themes:** Light/dark mode toggle
-- **Mobile Support:** Touch-friendly interface
+- **Mobile/Touch Support:** Touch-friendly drag interface for iPad
+- **Preset Preview:** Display preset metadata (file size, date modified)
+- **Export Formats:** Export bank layouts as CSV/JSON for version control
+- **Diff View:** Compare current layout against an imported X-Controls.txt to see what changed
+- **Keyboard Navigation:** Arrow keys to move between slots, Enter to select, Tab between sections
 
 ## Success Criteria
 
@@ -457,7 +492,7 @@ This tool was built through iterative development with Claude AI to solve the sp
 
 ---
 
-**Version:** 1.0  
+**Version:** 1.2
 **Last Updated:** March 2026  
 **Status:** Production Ready  
 

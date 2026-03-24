@@ -1,0 +1,356 @@
+#********************************** [SETTINGS NOTES] **********************************
+
+# Please DO NOT change any of the spacing in this file.
+
+# Please DO NOT change the name of this file or its file extension.  When done making
+# your changes to the settings below, just save the file.
+
+# After saving this file, you will need to load a new Live Set/reload the
+# current Live Set for your changes to take effect.
+
+
+
+# --------------------------------------------------------------------------------------
+
+[X-CONTROLS]
+
+# Below, you can specify a list of MIDI Controls to use as X-Controls.
+
+# The entry format is: NAME = TYPE, CHANNEL, NOTE_OR_CC, OFF_LED, ON_LED, ON_ACTION_LIST
+
+# --------------------------------------------------------------------------------------
+# | ENTRY          |  DESCRIPTION
+# --------------------------------------------------------------------------------------
+# | NAME           |  A unique one-word name for the control.
+# --------------------------------------------------------------------------------------
+# | TYPE           |  The type of MIDI message the control sends (NOTE or CC).
+# --------------------------------------------------------------------------------------
+# | CHANNEL        |  The MIDI Channel number in the range of 1-16
+# --------------------------------------------------------------------------------------
+# | NOTE_OR_CC     |  The Note or CC number in the range of 0-127.
+# --------------------------------------------------------------------------------------
+# | OFF_LED        |  The LED value in the range of 0-127 to use by default and when the
+# |                |  control sends an off message. If in doubt, use 0.
+# --------------------------------------------------------------------------------------
+# | ON_LED         |  The LED value in the range of 0-127 to use when the control sends
+# |                |  an on message. If in doubt, use 127.
+# --------------------------------------------------------------------------------------
+# | ON_ACTION_LIST |  The Action List to trigger when the control sends an on message.
+# --------------------------------------------------------------------------------------
+
+# Example: MY_BTN1 = NOTE, 1, 10, 0, 127, 1/MUTE ; 2/MUTE
+
+# You can optionally specify an Action List to trigger when the control sends an off
+# message. To do this, place a colon after the On Action List and then specify the
+# Off Action List.
+
+# Example: MY_BTN2 = CC, 16, 117, 0, 127, 1/MUTE ; 2/MUTE : 3/PLAY >
+
+# To trigger the same Action List for the On Action List and Off Action List, just specify
+# an asterisk for the Off Action List.
+
+# Example: MY_BTN3 = NOTE, 5, 0, 0, 127, 1/MUTE : *
+
+# --------------------------------------------------------------------------------------
+
+# Below is an example list that has been commented out (the # at the beginning of
+# a line makes the line a comment). Your list should be formatted in the same way
+# except without the # at the beginning of each line.
+
+# BTN_1 = NOTE, 1, 0, 0, 127, MUTE : *
+
+# BTN_2 = NOTE, 1, 1, 25, 15, SOLO
+
+# BTN_3 = CC, 9, 2, 127, 0, ARM
+
+# When using long Action Lists, it's possible to split the Action List up over multiple
+# lines.  This requires that each additional line is indented by 1 space.
+
+# BTN_4 = CC, 9, 3, 1, 5,
+#  MON;
+#  ARM;
+#  NAME "My Track"
+
+# --------------------------------------------------------------------------------------
+
+# ========================================================================================
+# 2-BANK CHANNEL-BASED PRESET SYSTEM
+# ========================================================================================
+# Bank 1 = MIDI Channel 1 (112 presets)
+# Bank 2 = MIDI Channel 2 (112 presets with PLACEHOLDER names - easy to find & replace!)
+# Total: 224 presets across 2 banks
+#
+# MASCHINE SETUP: Create 2 templates on your Maschine MK3
+# - Template 1: All pads send MIDI Channel 1 (Bank 1)
+# - Template 2: All pads send MIDI Channel 2 (Bank 2)
+# Switch templates on Maschine = Switch banks instantly!
+# ========================================================================================
+
+# ----------------------------------------------------------------------------------------
+# BANK 1 - MIDI CHANNEL 1 (Notes 0-111)
+# ----------------------------------------------------------------------------------------
+
+# PAGE 1 - ACOUSTIC DRUMS (Notes 0-15)
+PAD_1_B1 = NOTE, 1, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Acoustic Drums.adg"
+PAD_2_B1 = NOTE, 1, 1, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - Acoustic Drums.adg"
+PAD_3_B1 = NOTE, 1, 2, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "3 - Acoustic Drums.adg"
+PAD_4_B1 = NOTE, 1, 3, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "4 - Acoustic Drums.adg"
+PAD_5_B1 = NOTE, 1, 4, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "5 - Acoustic Drums.adg"
+PAD_6_B1 = NOTE, 1, 5, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "6 - Acoustic Drums.adg"
+PAD_7_B1 = NOTE, 1, 6, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "7 - Acoustic Drums.adg"
+PAD_8_B1 = NOTE, 1, 7, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "8 - Acoustic Drums.adg"
+PAD_9_B1 = NOTE, 1, 8, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "9 - Acoustic Drums.adg"
+PAD_10_B1 = NOTE, 1, 9, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "10 - Acoustic Drums.adg"
+PAD_11_B1 = NOTE, 1, 10, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "11 - Acoustic Drums.adg"
+PAD_12_B1 = NOTE, 1, 11, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "12 - Acoustic Drums.adg"
+PAD_13_B1 = NOTE, 1, 12, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "13 - Acoustic Drums.adg"
+PAD_14_B1 = NOTE, 1, 13, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "14 - Acoustic Drums.adg"
+PAD_15_B1 = NOTE, 1, 14, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "15 - Acoustic Drums.adg"
+PAD_16_B1 = NOTE, 1, 15, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "16 - Acoustic Drums.adg"
+
+# PAGE 2 - ELECTRONIC DRUMS (Notes 16-31)
+PAD_17_B1 = NOTE, 1, 16, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Electronic Drums.adg"
+PAD_18_B1 = NOTE, 1, 17, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - Electronic Drums.adg"
+PAD_19_B1 = NOTE, 1, 18, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "3 - Electronic Drums.adg"
+PAD_20_B1 = NOTE, 1, 19, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "4 - Electronic Drums.adg"
+PAD_21_B1 = NOTE, 1, 20, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "5 - Electronic Drums.adg"
+PAD_22_B1 = NOTE, 1, 21, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "6 - Electronic Drums.adg"
+PAD_23_B1 = NOTE, 1, 22, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "7 - Electronic Drums.adg"
+PAD_24_B1 = NOTE, 1, 23, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "8 - Electronic Drums.adg"
+PAD_25_B1 = NOTE, 1, 24, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "9 - Electronic Drums.adg"
+PAD_26_B1 = NOTE, 1, 25, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "10 - Electronic Drums.adg"
+PAD_27_B1 = NOTE, 1, 26, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "11 - Electronic Drums.adg"
+PAD_28_B1 = NOTE, 1, 27, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "12 - Electronic Drums.adg"
+PAD_29_B1 = NOTE, 1, 28, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "13 - Electronic Drums.adg"
+PAD_30_B1 = NOTE, 1, 29, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "14 - Electronic Drums.adg"
+PAD_31_B1 = NOTE, 1, 30, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "15 - Electronic Drums.adg"
+PAD_32_B1 = NOTE, 1, 31, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "16 - Electronic Drums.adg"
+
+# PAGE 3 - BASS (Notes 32-47)
+PAD_33_B1 = NOTE, 1, 32, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Acoustic Bass.adg"
+PAD_34_B1 = NOTE, 1, 33, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - Acoustic Bass.adg"
+PAD_35_B1 = NOTE, 1, 34, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "3 - Acoustic Bass.adg"
+PAD_36_B1 = NOTE, 1, 35, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "4 - Slap Bass.adg"
+PAD_37_B1 = NOTE, 1, 36, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "5 - Upright Bass.adg"
+PAD_38_B1 = NOTE, 1, 37, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Clav.adg"
+PAD_39_B1 = NOTE, 1, 38, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Synth Bass.adg"
+PAD_40_B1 = NOTE, 1, 39, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - Synth Bass.adg"
+PAD_41_B1 = NOTE, 1, 40, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "3 - Synth Bass.adg"
+PAD_42_B1 = NOTE, 1, 41, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "4 - Synth Bass.adg"
+PAD_43_B1 = NOTE, 1, 42, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "5 - Synth Bass.adg"
+PAD_44_B1 = NOTE, 1, 43, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "6 - Synth Bass.adg"
+PAD_45_B1 = NOTE, 1, 44, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "7 - Synth Bass.adg"
+PAD_46_B1 = NOTE, 1, 45, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "8 - Synth Bass.adg"
+PAD_47_B1 = NOTE, 1, 46, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - 808s VST.adg"
+PAD_48_B1 = NOTE, 1, 47, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - 808s VST.adg"
+
+# PAGE 4 - KEYBOARDS (Notes 48-63)
+PAD_49_B1 = NOTE, 1, 48, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "1 - Acoustic Piano.adg"
+PAD_50_B1 = NOTE, 1, 49, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "2 - Acoustic Piano.adg"
+PAD_51_B1 = NOTE, 1, 50, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "3 - Acoustic Piano.adg"
+PAD_52_B1 = NOTE, 1, 51, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "4 - Acoustic Piano.adg"
+PAD_53_B1 = NOTE, 1, 52, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Planet N.adg"
+PAD_54_B1 = NOTE, 1, 53, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Rhodes 1.adg"
+PAD_55_B1 = NOTE, 1, 54, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Rhodes 3 (Gritty).adg"
+PAD_56_B1 = NOTE, 1, 55, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Rhodes 4 (Wah).adg"
+PAD_57_B1 = NOTE, 1, 56, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Wurli 1 (Phaser).adg"
+PAD_58_B1 = NOTE, 1, 57, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Wurli 2 (Wah).adg"
+PAD_59_B1 = NOTE, 1, 58, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Wurli 3.adg"
+PAD_60_B1 = NOTE, 1, 59, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Wurli 4.adg"
+PAD_61_B1 = NOTE, 1, 60, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "B3 Organ 1 (Jazz).adg"
+PAD_62_B1 = NOTE, 1, 61, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "B3 Organ 2.adg"
+PAD_63_B1 = NOTE, 1, 62, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "B3 Organ 3 (Prog).adg"
+PAD_64_B1 = NOTE, 1, 63, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "B3 Organ 4.adg"
+
+# PAGE 5 - SYNTHS (Notes 64-79)
+PAD_65_B1 = NOTE, 1, 64, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 1.adg"
+PAD_66_B1 = NOTE, 1, 65, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 2.adg"
+PAD_67_B1 = NOTE, 1, 66, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 3.adg"
+PAD_68_B1 = NOTE, 1, 67, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 4.adg"
+PAD_69_B1 = NOTE, 1, 68, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 5.adg"
+PAD_70_B1 = NOTE, 1, 69, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 6.adg"
+PAD_71_B1 = NOTE, 1, 70, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 7.adg"
+PAD_72_B1 = NOTE, 1, 71, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 8.adg"
+PAD_73_B1 = NOTE, 1, 72, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 9.adg"
+PAD_74_B1 = NOTE, 1, 73, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 10.adg"
+PAD_75_B1 = NOTE, 1, 74, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 11.adg"
+PAD_76_B1 = NOTE, 1, 75, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 12.adg"
+PAD_77_B1 = NOTE, 1, 76, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 13.adg"
+PAD_78_B1 = NOTE, 1, 77, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 14.adg"
+PAD_79_B1 = NOTE, 1, 78, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 15.adg"
+PAD_80_B1 = NOTE, 1, 79, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Omnisphere 16.adg"
+
+# PAGE 6 - STRINGS (Notes 80-95)
+PAD_81_B1 = NOTE, 1, 80, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Acoustic Guitar 1.adg"
+PAD_82_B1 = NOTE, 1, 81, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Acoustic Guitar 2.adg"
+PAD_83_B1 = NOTE, 1, 82, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Electric Guitar 1.adg"
+PAD_84_B1 = NOTE, 1, 83, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Electric Guitar 2.adg"
+PAD_85_B1 = NOTE, 1, 84, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "String Ens 1.adg"
+PAD_86_B1 = NOTE, 1, 85, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "String Ens 2.adg"
+PAD_87_B1 = NOTE, 1, 86, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "String Ens 3.adg"
+PAD_88_B1 = NOTE, 1, 87, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "String Ens 4.adg"
+PAD_89_B1 = NOTE, 1, 88, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Pluck Strings 1.adg"
+PAD_90_B1 = NOTE, 1, 89, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Pluck Strings 2.adg"
+PAD_91_B1 = NOTE, 1, 90, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Pluck Strings 3.adg"
+PAD_92_B1 = NOTE, 1, 91, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Pluck Strings 4.adg"
+PAD_93_B1 = NOTE, 1, 92, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Disco Strings Fast Fall.adg"
+PAD_94_B1 = NOTE, 1, 93, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Disco Strings Long Run.adg"
+PAD_95_B1 = NOTE, 1, 94, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Disco Strings Minor Run.adg"
+PAD_96_B1 = NOTE, 1, 95, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Disco Strings Sustain.adg"
+
+# PAGE 7 - WINDS (Notes 96-111)
+PAD_97_B1 = NOTE, 1, 96, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Alto Flute 1.adg"
+PAD_98_B1 = NOTE, 1, 97, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Bari Flute 1.adg"
+PAD_99_B1 = NOTE, 1, 98, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Flute 1.adg"
+PAD_100_B1 = NOTE, 1, 99, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Piccolo 1.adg"
+PAD_101_B1 = NOTE, 1, 100, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Alto Sax.adg"
+PAD_102_B1 = NOTE, 1, 101, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Bari Sax.adg"
+PAD_103_B1 = NOTE, 1, 102, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Soprano Sax.adg"
+PAD_104_B1 = NOTE, 1, 103, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Tenor Sax.adg"
+PAD_105_B1 = NOTE, 1, 104, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Flugelhorn.adg"
+PAD_106_B1 = NOTE, 1, 105, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Piccolo Trumpet.adg"
+PAD_107_B1 = NOTE, 1, 106, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Trumpet.adg"
+PAD_108_B1 = NOTE, 1, 107, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "Trumpet C.adg"
+PAD_109_B1 = NOTE, 1, 108, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "EMPTY SLOT 109"
+PAD_110_B1 = NOTE, 1, 109, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "EMPTY SLOT 110"
+PAD_111_B1 = NOTE, 1, 110, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "EMPTY SLOT 111"
+PAD_112_B1 = NOTE, 1, 111, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "EMPTY SLOT 112"
+
+# ----------------------------------------------------------------------------------------
+# BANK 2 - MIDI CHANNEL 2 (Notes 0-111) - ALL PLACEHOLDERS FOR EASY EDITING
+# ----------------------------------------------------------------------------------------
+# To customize: Double-click "PLACEHOLDER" and replace with your preset filename
+# ----------------------------------------------------------------------------------------
+
+# PAGE 1 - ACOUSTIC DRUMS (Notes 0-15)
+PAD_1_B2 = NOTE, 2, 0, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "LABS - Percussion"
+PAD_2_B2 = NOTE, 2, 1, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_3_B2 = NOTE, 2, 2, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_4_B2 = NOTE, 2, 3, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_5_B2 = NOTE, 2, 4, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_6_B2 = NOTE, 2, 5, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_7_B2 = NOTE, 2, 6, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_8_B2 = NOTE, 2, 7, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_9_B2 = NOTE, 2, 8, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_10_B2 = NOTE, 2, 9, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_11_B2 = NOTE, 2, 10, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_12_B2 = NOTE, 2, 11, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_13_B2 = NOTE, 2, 12, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_14_B2 = NOTE, 2, 13, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_15_B2 = NOTE, 2, 14, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_16_B2 = NOTE, 2, 15, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 2 - ELECTRONIC DRUMS (Notes 16-31)
+PAD_17_B2 = NOTE, 2, 16, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_18_B2 = NOTE, 2, 17, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_19_B2 = NOTE, 2, 18, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_20_B2 = NOTE, 2, 19, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_21_B2 = NOTE, 2, 20, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_22_B2 = NOTE, 2, 21, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_23_B2 = NOTE, 2, 22, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_24_B2 = NOTE, 2, 23, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_25_B2 = NOTE, 2, 24, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_26_B2 = NOTE, 2, 25, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_27_B2 = NOTE, 2, 26, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_28_B2 = NOTE, 2, 27, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_29_B2 = NOTE, 2, 28, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_30_B2 = NOTE, 2, 29, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_31_B2 = NOTE, 2, 30, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_32_B2 = NOTE, 2, 31, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 3 - BASS (Notes 32-47)
+PAD_33_B2 = NOTE, 2, 32, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_34_B2 = NOTE, 2, 33, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_35_B2 = NOTE, 2, 34, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_36_B2 = NOTE, 2, 35, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_37_B2 = NOTE, 2, 36, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_38_B2 = NOTE, 2, 37, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_39_B2 = NOTE, 2, 38, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_40_B2 = NOTE, 2, 39, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_41_B2 = NOTE, 2, 40, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_42_B2 = NOTE, 2, 41, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_43_B2 = NOTE, 2, 42, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_44_B2 = NOTE, 2, 43, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_45_B2 = NOTE, 2, 44, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_46_B2 = NOTE, 2, 45, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_47_B2 = NOTE, 2, 46, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_48_B2 = NOTE, 2, 47, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 4 - KEYBOARDS (Notes 48-63)
+PAD_49_B2 = NOTE, 2, 48, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_50_B2 = NOTE, 2, 49, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_51_B2 = NOTE, 2, 50, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_52_B2 = NOTE, 2, 51, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_53_B2 = NOTE, 2, 52, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_54_B2 = NOTE, 2, 53, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_55_B2 = NOTE, 2, 54, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_56_B2 = NOTE, 2, 55, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_57_B2 = NOTE, 2, 56, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_58_B2 = NOTE, 2, 57, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_59_B2 = NOTE, 2, 58, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_60_B2 = NOTE, 2, 59, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_61_B2 = NOTE, 2, 60, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_62_B2 = NOTE, 2, 61, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_63_B2 = NOTE, 2, 62, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_64_B2 = NOTE, 2, 63, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 5 - SYNTHS (Notes 64-79)
+PAD_65_B2 = NOTE, 2, 64, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_66_B2 = NOTE, 2, 65, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_67_B2 = NOTE, 2, 66, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_68_B2 = NOTE, 2, 67, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_69_B2 = NOTE, 2, 68, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_70_B2 = NOTE, 2, 69, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_71_B2 = NOTE, 2, 70, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_72_B2 = NOTE, 2, 71, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_73_B2 = NOTE, 2, 72, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_74_B2 = NOTE, 2, 73, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_75_B2 = NOTE, 2, 74, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_76_B2 = NOTE, 2, 75, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_77_B2 = NOTE, 2, 76, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_78_B2 = NOTE, 2, 77, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_79_B2 = NOTE, 2, 78, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_80_B2 = NOTE, 2, 79, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 6 - STRINGS (Notes 80-95)
+PAD_81_B2 = NOTE, 2, 80, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_82_B2 = NOTE, 2, 81, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_83_B2 = NOTE, 2, 82, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_84_B2 = NOTE, 2, 83, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_85_B2 = NOTE, 2, 84, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_86_B2 = NOTE, 2, 85, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_87_B2 = NOTE, 2, 86, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_88_B2 = NOTE, 2, 87, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_89_B2 = NOTE, 2, 88, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_90_B2 = NOTE, 2, 89, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_91_B2 = NOTE, 2, 90, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_92_B2 = NOTE, 2, 91, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_93_B2 = NOTE, 2, 92, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_94_B2 = NOTE, 2, 93, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_95_B2 = NOTE, 2, 94, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_96_B2 = NOTE, 2, 95, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# PAGE 7 - WINDS (Notes 96-111)
+PAD_97_B2 = NOTE, 2, 96, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_98_B2 = NOTE, 2, 97, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_99_B2 = NOTE, 2, 98, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_100_B2 = NOTE, 2, 99, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_101_B2 = NOTE, 2, 100, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_102_B2 = NOTE, 2, 101, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_103_B2 = NOTE, 2, 102, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_104_B2 = NOTE, 2, 103, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_105_B2 = NOTE, 2, 104, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_106_B2 = NOTE, 2, 105, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_107_B2 = NOTE, 2, 106, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_108_B2 = NOTE, 2, 107, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_109_B2 = NOTE, 2, 108, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_110_B2 = NOTE, 2, 109, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_111_B2 = NOTE, 2, 110, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+PAD_112_B2 = NOTE, 2, 111, 0, 127, SEL/DEV(1) SEL ; WAIT 1 ; SEL/SWAP "PLACEHOLDER"
+
+# ----------------------------------------------------------------------------------------
+# DEVICE WINDOW CONTROLS (CC Messages)
+# ----------------------------------------------------------------------------------------
+
+SHOW_PLUGIN = CC, 1, 38, 0, 127, SEL/DEV FOLD OFF
+HIDE_PLUGIN = CC, 1, 39, 0, 127, SEL/DEV FOLD ON
